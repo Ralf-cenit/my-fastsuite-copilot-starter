@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# VS Code
+.vscode/.ropeproject/
+*.code-workspace.bak
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# E2 output (generated robot programs)
+*.src
+*.dat
+*.ls
+*.mod
+*.prg
+
+# Exception: golden files are intentionally committed
+!**/tests/golden/**
+!workshops/**/golden/**
+!workshops/**/golden_aml/**
+
+# Test output (regenerated on each download — compare against golden/)
+**/tests/output/
+
+# Dev-loop watcher working state (trigger/status files, copied output) — see skills/downloader/templates/dev_loop_watcher.py
+.agent-dev/

@@ -1,0 +1,117 @@
+# Copilot Instructions (FASTSUITE E2 Customization)
+
+## Goals
+- Keep changes small, reviewable, and well-documented.
+- Preserve existing behavior unless a change is explicitly requested.
+- Prefer architecture that is easy for project engineers to customize.
+
+## Repository Structure
+- **Your code**: `OLPTranslators/<VENDOR>/` and `Technologies/<VENDOR>/`
+- **Community examples**: `community/` (git submodule — read-only reference)
+- **Skills**: `skills/`
+- **Agent modes**: `AGENTS.md`
+- **API docs**: Obsidian vault via `obsidian-e2` MCP server (see `.vscode/mcp.json`)
+
+## Repository Hygiene
+- Do not introduce new third-party dependencies unless necessary.
+- Keep vendor-specific logic under the vendor folder (e.g., `OLPTranslators/MyVendor`).
+- Put specs and change notes in vendor docs:
+  - Spec: `docs/ctrl-specific/<VENDOR>/spec/*.md`
+  - Change log / working notes: `docs/ctrl-specific/<VENDOR>/current.md`
+
+## API Documentation Context
+Use the `obsidian-e2` MCP server to look up E2 Python API docs. Search the vault for the relevant classes and callbacks.
+
+## API Authority
+
+Use these sources with explicit precedence:
+
+- **`typings/` is authoritative** for Python package surface that exists in this repo: class names, method names, signatures, argument order, return types, enum members, and writable object methods.
+- **Obsidian MCP is authoritative** for lifecycle order, callback semantics, behavioral patterns, gotchas, and technology operator APIs that do not yet have stubs in `typings/`.
+- If both sources cover the same stubbed API surface and disagree, prefer `typings/` first, then confirm with repo code or runtime behavior.
+- For Technology scripting, Obsidian currently has higher authority for many operator APIs because technology stubs are still incomplete.
+
+Short rule: **signatures from `typings/`; behavior from Obsidian; real runtime/tree dumps break ties.**
+
+### Downloader Work (`OLPTranslators\*\*.py`)
+- **Primary context:** vault folder `10_API_Reference/Download/` (Download Callback Lifecycle, DULPython* classes)
+- **Core objects:** vault folder `10_API_Reference/OlpCore/` (OlpCorePython* classes, Attributes, Enumerations)
+- Use when working on: vendor-specific download scripts
+- Read `skills/downloader/references/<vendor>.md` when present; Kawasaki work requires `skills/downloader/references/kawasaki.md`.
+- **DO NOT MODIFY:** downloadStarter.py, downloader.py (E2 installation files)
+
+### Uploader Work (`OLPTranslators\*\*.py`)
+- **Primary context:** vault folder `10_API_Reference/Upload/` (Upload Callback Lifecycle, ULPython* classes)
+- **Core objects:** vault folder `10_API_Reference/OlpCore/`
+- Use when working on: vendor-specific upload scripts
+- **DO NOT MODIFY:** uploadStarter.py, uploader.py (E2 installation files)
+
+### Technology Work (`Technologies\*\...\Scripts\*.py`)
+- **Primary context:** vault folder `10_API_Reference/Technology/` (Technology Callback Lifecycle, Workmethod Callback Lifecycle)
+- **Core objects:** vault folder `10_API_Reference/OlpCore/`
+- Use when working on: callback scripts (PostTechInitAttributes, PostWmSyncPgAttributes, etc.), event scripts, workmethod scripts
+
+### Report Generation
+- **Primary context:** vault note `10_API_Reference/Reporting/ReportUtility`
+- Use when working on: PDF report generation, ReportUtility customization
+
+## Documentation Rules
+- If you change downloader behavior or output format, update:
+  - `docs/ctrl-specific/<VENDOR>/current.md`
+  - and the relevant spec under `docs/ctrl-specific/<VENDOR>/spec/`.
+- Avoid large "wall of text" docs; keep specs actionable and scoped.
+
+## Coding Rules
+- Separate orchestration from syntax emission:
+  - Baseline downloader handles E2 lifecycle/traversal, generic motion, file structure.
+  - Technology plugins handle tech events and tech-specific syntax.
+- Keep the customization surface small:
+  - Prefer simple mapping tables / helper functions over deep inheritance.
+  - Avoid changing traversal logic to support customer-specific syntax.
+- Do not add debugging prints; use E2 logger when needed.
+
+## Testing / Determinism
+- Generated output should be deterministic for tests:
+  - Avoid embedding timestamps/usernames unless guarded by a test flag.
+- Prefer golden-file comparisons for translators.
+
+## Safety
+- **Do not modify files outside this repository** (e.g., E2 installation files).
+- **Do not modify E2 core files:** downloadStarter.py, downloader.py, uploadStarter.py, uploader.py are in the E2 installation side-package folder.
+- **Do not modify E2 site-packages** under the FASTSUITE installation `Lib/site-packages/` (cenpydownload, cenpyolpcore, cenpylib, cenpyupload, etc.).
+- Do not install new Python packages unless explicitly approved.
+- Do not modify files outside the translator/technology scope unless requested.
+- Do not commit or push unless explicitly asked.
+- **Never push any `private/*` branch to any remote** (this repo or the `community` submodule) — these are local-only working branches; only push `publish/*` branches after the squash/scrub workflow. A `pre-push` hook (`.githooks/pre-push`, wired via `core.hooksPath`) enforces this at the git level as a backstop, but agents/harnesses must not rely on the hook and must never attempt the push in the first place.
+
+## Skills & Agent Modes
+- **Downloader skill**: `skills/downloader/SKILL.md` — comprehensive guide for creating/modifying OLP downloaders (lifecycle, API reference, event handling, position output, common mistakes). Use when working on any `OLPTranslators/**/*.py` file.
+- **Downloader vendor references**: `skills/downloader/references/` — focused controller rules shared by GitHub Copilot and Codex.
+- **Base template**: `skills/downloader/templates/base_downloader.py` — minimal working starter downloader with all callbacks stubbed.
+- **Technology skill**: `skills/technology/SKILL.md` — maintained workflow for attributes, UI/NLS, events/rules, compute-time generation, and process-geometry import; read its task-specific reference before editing Technology code.
+- **Agent modes**: `AGENTS.md` — defines E2Downloader, E2Technology, E2Uploader modes with scoped instructions.
+- **OLP translator rules**: `OLPTranslators/.instructions.md` — scoped coding rules applied automatically when editing translator files.
+
+## Reference Code (Community Submodule)
+- `community/OLPTranslators/KUKA/KUKA_KRC5.py` — canonical base downloader pattern
+- `community/OLPTranslators/ABB/ABB_IRC5.py` — advanced multi-plugin reference
+- `community/OLPTranslators/Simple_Python_Translator.py` — OLP tree dumper for analysis
+
+## Session Debrief (Knowledge Capture)
+
+After completing a milestone (feature works, bug fixed, golden files pass), run through this checklist:
+
+1. **Cross-vendor pattern?** → Update `skills/downloader/SKILL.md` (or the relevant skill). Examples: new framework API usage, event handling pattern, traversal strategy.
+2. **Vendor-specific gotcha?** → Update `docs/ctrl-specific/<VENDOR>/spec/downloader-patterns.md`. Examples: output order, Euler convention, formatting quirks, state machine flags.
+3. **Output format changed?** → Update `docs/ctrl-specific/<VENDOR>/spec/` (the relevant spec) and `docs/ctrl-specific/<VENDOR>/current.md`.
+4. **Golden coverage** → Run the "Check Golden Coverage" task to verify new programs have golden files.
+5. **Platform discovery?** → If the `obsidian-e2` MCP is connected, write to `90_Inbox_AI/` via `create_vault_file`. Good candidates: undocumented callback behavior, attribute type traps, framework traversal rules, error root causes. Use frontmatter `status: draft`, `source: agent-generated`. Search the vault first to avoid duplicates.
+
+This keeps lessons in the repo (git-tracked, visible to all collaborators) rather than in ephemeral agent memory.
+Platform-wide discoveries flow to the vault inbox for human triage and promotion.
+
+## Environment
+- Python 3.12 (bundled with FASTSUITE E2) — interpreter path configured in `.vscode/settings.json`.
+- E2 API packages: `cenpydownload`, `cenpyolpcore`, `cenpylib`, `cenpyupload`, `cenpymath`, `cenpyunits` — read-only, in installation `Lib/site-packages/`.
+- E2 bootstrap modules: `centypes.py`, `cenpyDef*.py`, `defDownload.py`, `defUpload.py` — at installation root, read-only.
+- Workspace is single-root at the repo root. All paths are relative to that root.
