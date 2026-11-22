@@ -1,7 +1,7 @@
 {
    // ── Python / Pylance ────────────────────────────────────────────
    // TODO: Update this path to match YOUR FASTSUITE E2 installation
-   "python.defaultInterpreterPath": "c:\\Programs\\FASTSUITE_Edition_2_R2026.1\\python.exe",
+   "python.defaultInterpreterPath": "C:\\Users\\haag_r\\source\\repos_V002\\Cenit.FastSuite\\build\\x64\\Release\\python.exe",
    "python.analysis.autoSearchPaths": true,
    "python.analysis.extraPaths": [
       // Workspace-committed stubs — works on any machine without E2 installed.
@@ -9,10 +9,10 @@
       "${workspaceFolder}/typings",
       // E2 installation root (centypes.py, cenpyDef*.py, defDownload.py, etc.)
       // TODO: Update this path to match YOUR FASTSUITE E2 installation
-      "c:\\Programs\\FASTSUITE_Edition_2_R2026.1",
+      "C:\\Users\\haag_r\\source\\repos_V002\\Cenit.FastSuite\\build\\x64\\Release",
       // E2 API packages — used as fallback when E2 is installed locally
       // TODO: Update this path to match YOUR FASTSUITE E2 installation
-      "c:\\Programs\\FASTSUITE_Edition_2_R2026.1\\Lib\\site-packages",
+      "C:\\Users\\haag_r\\source\\repos_V002\\Cenit.FastSuite\\build\\x64\\Release\\Lib\\site-packages",
       // Workspace code (cross-vendor imports)
       "${workspaceFolder}",
       "${workspaceFolder}/OLPTranslators"
@@ -28,8 +28,8 @@
    "python.autoComplete.extraPaths": [
       "${workspaceFolder}/typings",
       // TODO: Update these paths to match YOUR FASTSUITE E2 installation
-      "c:\\Programs\\FASTSUITE_Edition_2_R2026.1",
-      "c:\\Programs\\FASTSUITE_Edition_2_R2026.1\\Lib\\site-packages"
+      "C:\\Users\\haag_r\\source\\repos_V002\\Cenit.FastSuite\\build\\x64\\Release",
+      "C:\\Users\\haag_r\\source\\repos_V002\\Cenit.FastSuite\\build\\x64\\Release\\Lib\\site-packages"
    ],
 
    // ── Editor ──────────────────────────────────────────────────────
@@ -47,7 +47,34 @@
    // ── E2 paths (used by VS Code tasks) ────────────────────────────
    // TODO: Update these paths to match YOUR FASTSUITE E2 installation
    // Path where E2 looks for OLP translator scripts
-   "e2.translatorInstallPath": "c:\\Programs\\FASTSUITE_Edition_2_R2026.1\\OLPTranslators",
+   "e2.translatorInstallPath": "C:\\Users\\haag_r\\source\\repos_V002\\Cenit.FastSuite\\build\\x64\\Release\\OLPTranslators",
    // Path to the E2 download log file
-   "e2.logPath": "c:\\Users\\Public\\FASTSUITE_Edition_2\\Logs\\download.log"
+   "e2.logPath": "C:\\Users\\haag_r\\AppData\\Local\\CENIT\\FastSuite\\Logs\\download.log",
+   "workbench.colorCustomizations": {
+      "tab.border":"#ACC334",
+      "badge.foreground":"#f0f0f0",
+      "titleBar.activeBackground":"#ACC334",
+      "titleBar.activeForeground": "#2D2D2D",
+      "titleBar.inactiveForeground": "#f0f0f0",
+      "statusBar.background":"#2D2D2D",
+      "statusBar.noFolderBackground":"#2D2D2D",
+      "statusBar.debuggingBackground":"#ACC334",
+      "statusBar.debuggingForeground": "#2D2D2D",
+      "statusBarItem.remoteBackground":"#AC6218",
+      "menu.background":"#0F0F0F",
+      "menu.foreground":"#f0f0f0",
+      "menu.separatorBackground": "#ff0000",
+      "menubar.selectionBackground": "#0bb321",
+      "debugToolBar.border": "#0059ff",
+      "debugToolBar.background":"#f6fa1f",
+      "activityBar.background":"#2D2D2D",
+      "activityBar.foreground":"#ffffff",
+      "sideBar.background":"#c2c2c2",
+      "sideBar.foreground":"#8d5858",
+      "sideBarSectionHeader.foreground": "#ff0000",
+      "sideBarSectionHeader.background":"#798a25",
+      "toolbar.activeBackground": "#ff0000",
+      "list.hoverBackground": "#93af50",
+      "editor.background":"#fffff2"
+   }
 }
