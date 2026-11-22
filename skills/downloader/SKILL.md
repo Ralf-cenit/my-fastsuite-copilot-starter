@@ -47,6 +47,7 @@ Short rule: signatures from `typings/`, behavior from Obsidian.
 | `community/OLPTranslators/KUKA/KUKA_KRC5.py` | **Canonical base downloader** — motion FOLDs, position data, event handling |
 | `community/OLPTranslators/ABB/ABB_IRC5.py` | **Advanced multi-plugin** downloader with technology plugins |
 | `community/OLPTranslators/KAWASAKI/KAWASAKI_AS.py` | **Kawasaki AS reference** — read [`references/kawasaki.md`](references/kawasaki.md) before changing it |
+| `OLPTranslators/Arnold/` | **Arnold ISO downloaders/uploader** — read [`references/arnold.md`](references/arnold.md) before changing them |
 | Obsidian vault `10_API_Reference/Download/` | Full Download API documentation (via `obsidian-e2` MCP) |
 | Obsidian vault `10_API_Reference/OlpCore/` | Core object model — attributes, resources, technologies (via `obsidian-e2` MCP) |
 | `skills/downloader/templates/base_downloader.py` | Minimal starter template |

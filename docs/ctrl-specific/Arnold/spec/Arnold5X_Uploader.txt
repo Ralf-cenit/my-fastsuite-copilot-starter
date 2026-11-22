@@ -1,0 +1,70 @@
+Block Numbers:
+Nxxx  : optional, can be ignored
+
+analyse : Operation Start
+N170 ;START OF ....
+
+analyse : Operation End
+N630 ;END OF 
+
+analyse : Linear Motion:
+N180 G01 X-92.014 Y-400.256 Z-656.553 B9.333 C89.974 F440.0
+all Items are optional
+Description:
+G00/G01                       : PTP or Linear Motion Type
+X-92.014 Y-400.256 Z-656.553  : XYZ-Cartesian-Position
+B9.333 C89.974                : ABC-Rotation-Axis
+F440.0                        : Speed-Event on Element, insertPosition before
+
+analyse : Circular Motion:
+N230 CIP I1=-80.099 J1=-403.075 K1=-737.164 X-98.576 Y-399.1 Z-737.816 B9.333 C89.974
+Description:
+CIP                                  : Circularar Motion Type
+I1=-80.099 J1=-403.075 K1=-737.164   : XYZ-Cartesian-Via-Position
+X-98.576 Y-399.1 Z-737.816           : XYZ-Cartesian-Position
+B9.333 C89.974                       : ABC-Rotation-Axis
+
+analyse : Event LaserOn:
+N210 PP3
+
+analyse : Event LaserOff:
+N210 PP6
+
+analyse : Regshape Event Circle:
+Regshape Position is the Position and Rotation of the last Motion
+N530 ROT Y9.333 Z89.974    : Rotation Axis of the last Motion
+N540 G91                   : can be ignored
+N550 F166.7                : can be ignored
+N560 R4=19.0               : Circle Diameter
+N570 AROT Z-44.597         : Rotation in Working Plane
+N580 ZYCL_KR               : Regshape Circle
+N590 ROT Y0.0 Z0.0         : can be ignored
+N780 G90                   : can be ignored
+
+analyse : Regshape Event Slot:
+Regshape Position is the Position and Rotation of the last Motion
+N690 ROT Y0.084 Z93.898    : Rotation Axis of the last Motion
+N700 G91                   : can be ignored
+N710 F166.7                : can be ignored
+N720 R1=30.0               : Slot Length
+N730 R2=10.0               : Slot Width
+N740 R3=5.0                : Slot Cornerradius
+N750 AROT Z59.135          : Rotation in Working Plane
+N760 ZYCL_RQ               : Regshape Slot, if Cornerradius*2=Width
+N590 ROT Y0.0 Z0.0         : can be ignored
+N780 G90                   : can be ignored
+
+analyse : Regshape Event Rectangle:
+Regshape Position is the Position and Rotation of the last Motion
+N870 ROT Y-4.127 Z104.025  : Rotation Axis of the last Motion
+N880 G91                   : can be ignored
+N890 F166.7                : can be ignored
+N900 R1=21.004             : Rectangle Length
+N910 R2=5.999              : Rectangle Width
+N920 R3=1.5                : Rectangle Cornerradius
+N930 AROT Z75.894          : Rotation in Working Plane
+N940 ZYCL_RQ               : Regshape Rectangle, if Cornerradius*2<Width
+N950 ROT Y0.0 Z0.0         : can be ignored
+N960 G90                   : can be ignored
+
+All other Lines handled as Text-Events, as Multiline if more than one Line after each other 

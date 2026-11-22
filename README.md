@@ -73,7 +73,9 @@ For focused work, name the appropriate role in your request: **E2Downloader**, *
 ## Repository Structure
 
 ```
-├── .github/copilot-instructions.md   # Shared global policy; native Copilot instructions
+├── .github/
+│   ├── copilot-instructions.md        # Shared global policy; native Copilot instructions
+│   └── instructions/                  # Per-translator rules (applyTo), e.g. Arnold*.instructions.md
 ├── .vscode/                           # VS Code settings, launch config
 ├── AGENTS.md                          # Codex entry point and shared E2 agent modes
 ├── skills/
@@ -92,6 +94,7 @@ For focused work, name the appropriate role in your request: **E2Downloader**, *
 │   └── ctrl-specific/                 # Vendor/controller documentation
 ├── examples/technology/               # Curated R2026.1 teaching overlays
 ├── OLPTranslators/                    # YOUR vendor-specific downloaders/uploaders
+│   ├── Arnold/                        # Arnold2D/2DS/5X downloaders, Arnold5X uploader, tests/
 │   └── .instructions.md              # Auto-applied coding rules
 ├── Technologies/                      # YOUR technology plugins
 │   └── .instructions.md              # Auto-applied coding rules

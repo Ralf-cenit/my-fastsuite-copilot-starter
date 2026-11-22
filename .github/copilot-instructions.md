@@ -37,13 +37,14 @@ Short rule: **signatures from `typings/`; behavior from Obsidian; real runtime/t
 - **Primary context:** vault folder `10_API_Reference/Download/` (Download Callback Lifecycle, DULPython* classes)
 - **Core objects:** vault folder `10_API_Reference/OlpCore/` (OlpCorePython* classes, Attributes, Enumerations)
 - Use when working on: vendor-specific download scripts
-- Read `skills/downloader/references/<vendor>.md` when present; Kawasaki work requires `skills/downloader/references/kawasaki.md`.
+- Read `skills/downloader/references/<vendor>.md` when present; Kawasaki work requires `skills/downloader/references/kawasaki.md`, Arnold work requires `skills/downloader/references/arnold.md` and the matching `.github/instructions/Arnold*.instructions.md`.
 - **DO NOT MODIFY:** downloadStarter.py, downloader.py (E2 installation files)
 
 ### Uploader Work (`OLPTranslators\*\*.py`)
 - **Primary context:** vault folder `10_API_Reference/Upload/` (Upload Callback Lifecycle, ULPython* classes)
 - **Core objects:** vault folder `10_API_Reference/OlpCore/`
 - Use when working on: vendor-specific upload scripts
+- Arnold uploader work requires `skills/downloader/references/arnold.md` and `.github/instructions/Arnold5X_ul.instructions.md`.
 - **DO NOT MODIFY:** uploadStarter.py, uploader.py (E2 installation files)
 
 ### Technology Work (`Technologies\*\...\Scripts\*.py`)

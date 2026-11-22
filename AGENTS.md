@@ -26,7 +26,7 @@ Agent for creating and modifying OLP downloaders (robot program generators).
 ### Downloader Skills
 
 - `skills/downloader/SKILL.md` — Downloader customization skill
-- `skills/downloader/references/<vendor>.md` — read the matching reference when one exists; Kawasaki work requires `skills/downloader/references/kawasaki.md`
+- `skills/downloader/references/<vendor>.md` — read the matching reference when one exists; Kawasaki work requires `skills/downloader/references/kawasaki.md`, Arnold work requires `skills/downloader/references/arnold.md` plus the matching `.github/instructions/Arnold*.instructions.md`
 
 ### Downloader Workflow
 
@@ -91,6 +91,7 @@ Agent for creating and modifying OLP uploaders (robot program importers).
 ### Uploader Skills
 
 - `skills/uploader/SKILL.md` — Uploader customization skill
+- Arnold uploader work: `skills/downloader/references/arnold.md` and `.github/instructions/Arnold5X_ul.instructions.md`
 
 ### Uploader Workflow
 
